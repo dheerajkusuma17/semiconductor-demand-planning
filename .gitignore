@@ -1,0 +1,25 @@
+# Python environment & caches
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Model training artefacts (re-creatable)
+lightning_logs/
+checkpoints/
+*.ckpt
+mlruns/
+
+# Large / downloaded data (kept out of git; re-download with scripts/)
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/README.md
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+
+# Claude local settings (personal)
+.claude/settings.local.json
