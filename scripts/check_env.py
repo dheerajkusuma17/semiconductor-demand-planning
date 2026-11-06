@@ -174,7 +174,7 @@ def _():
     out = []
     for name, m in [("Ridge", Ridge()),
                     ("RF", RandomForestRegressor(n_estimators=100, random_state=42)),
-                    ("MLP", make_pipeline(StandardScaler(), MLPRegressor((32,), max_iter=2000, random_state=42)))]:
+                    ("MLP", make_pipeline(StandardScaler(), MLPRegressor(hidden_layer_sizes=(32,), max_iter=2000, random_state=42)))]:
         out.append(f"{name} {_wmape(yte, m.fit(Xtr, ytr).predict(Xte)):.0%}")
     return "WMAPE " + ", ".join(out)
 

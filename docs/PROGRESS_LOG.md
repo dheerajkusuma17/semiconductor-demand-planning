@@ -4,13 +4,30 @@ Newest entry at the top. Updated at the end of every working session (via `/chec
 
 ---
 
-## 2026-11-05 — Day 0: Readiness layer (in progress)
+## 2026-11-06 — Day 0: Readiness layer (Claude's part done; owner tasks pending)
 **Done**
+- Public repo created: https://github.com/dheerajkusuma17/semiconductor-demand-planning
+- Python 3.11 `.venv` with all libraries. Exact versions frozen in `requirements-lock.txt`.
+- `scripts/check_env.py`: **34/34 checks pass**. Covers pandas, statsmodels ARIMA/ETS, statsforecast AutoETS/Croston/TSB, bias tests (t-test, Wilcoxon, HAC), Ridge/RF/MLP, LightGBM/XGBoost, PyTorch 2.15 CPU, neuralforecast N-HiTS/LSTM, safety-stock math, Excel export, charts, and the Jupyter kernel.
+- Jupyter kernel "Semiconductor DP (.venv)" registered. VS Code extensions installed: Rainbow CSV, GitLens, Data Wrangler (Python, Pylance and Jupyter were already installed).
+- Data downloaded and validated with `scripts/download_data.py`:
+  - Intel MSOM: 26,114 rows, 86 SKUs, 5 DCs (ALPHA, BETA, DELTA, EPSILON, GAMMA), weeks 1–187, 5 generations, 394 SKU-DC combinations (66 weeks each on average)
+  - FRED A34SNO, A34SVS, IPG3344S through Sep 2026
+- Docs: `INDUSTRY_PRIMER.md` (fact-checked, 22 sources), `CONCEPTS_PRIMER.md` + quiz, `LEARNING_GUIDE.md`, `DECISIONS_LOG.md`, `READINESS_CHECKLIST.md`, `/checkpoint` skill.
+- `notebooks/00_prerequisites_bootcamp.ipynb` executes top to bottom.
+
+**Owner to-do before Day 1**
+1. Install Power BI Desktop (Microsoft Store) and open `data/sample/powerbi_test.csv`.
+2. Sign in to Streamlit Community Cloud with GitHub (share.streamlit.io).
+3. Work through the bootcamp notebook and its 5 exercises.
+4. Read `INDUSTRY_PRIMER.md` + `CONCEPTS_PRIMER.md`; take the 15-question quiz (target ≥ 12/15).
+
+**Open questions (for Day 1)**
+- A crude first pass gives Intel forecast vs. orders **bias ≈ +217%, WMAPE ≈ 239%**. That's far too large to be a normal weekly forecast error. Before scoring anything on Day 2, find out what `Forecasted Demand` represents: horizon / lag, single week or cumulative, units. Check the dataset paper's description.
+- The Intel weeks are relative (1–187), with no calendar dates. Aligning to the monthly FRED series needs the real calendar period. If the paper doesn't give it, FRED is used as market context only, not as model features.
+- SKU-A-2 at ALPHA has only 89 of 187 weeks. Life cycles are short, so many series are short. This affects model choice: global ML models and life-cycle features.
+
+---
+
+## 2026-11-05 — Day 0 started
 - Plan approved: semiconductor data (Intel MSOM dataset + FRED), Streamlit + Power BI showcase, build + explain style.
-- Repo skeleton, `CLAUDE.md`, `.gitignore`, `requirements.txt`, Python 3.11 virtual environment.
-
-**Next**
-- Finish Day 0 exit criteria (see `docs/READINESS_CHECKLIST.md`).
-
-**Open questions**
-- Is the Intel dataset downloadable without an institutional login? (decides the data path)
