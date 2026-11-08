@@ -23,3 +23,6 @@ Thumbs.db
 
 # Claude local settings (personal)
 .claude/settings.local.json
+
+# Processed data (re-create with src.data.build_processed)
+data/processed/*.parquet

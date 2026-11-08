@@ -4,6 +4,27 @@ Newest entry at the top. Updated at the end of every working session (via `/chec
 
 ---
 
+## 2026-11-08 — Day 1: Data understanding (Claude's part done; owner review pending)
+**Done**
+- `src/data.py`: load, fill zero-order weeks, life-cycle columns, SBC demand classes, FRED loader; `src/viz.py` chart style. `pytest`: 6 passed.
+- `notebooks/01_data_understanding.ipynb` (47 cells) executes cleanly. It saves `data/processed/intel_weekly_panel.parquet` (git-ignored, re-creatable) and `series_summary.csv`.
+
+**Key results (as printed by the notebook)**
+- Rows exist only for weeks with orders: 4,721 zero-order weeks filled (15.3% of the 30,835-week panel).
+- `Forecasted Demand` = same-week forecast (median correlation peaks at offset 0, ≈0.50). Not a multi-week total.
+- Forecast ÷ orders by DC: ALPHA 1.13×, BETA 1.06×, DELTA 2.50×, EPSILON 4.74×, GAMMA 1.58×. The headline bias is concentrated in DELTA and EPSILON.
+- SBC classes: 224 erratic (77% of volume), 87 lumpy, 53 smooth, 24 intermittent, 6 too short to classify.
+- Gen 1–2 launched before the data window, and most of Gen 4–5 are still selling at week 187. Gen 3 is the only full life cycle.
+- Spikes (>3× past-8-week median): early life → ramp (next 4 weeks 3.31× baseline); mature → largely one-off (next 4 weeks = 37% of the spike week; 24% fall below baseline).
+- Higher ASP group ↔ newer generation (ρ = 0.28, p = 0.010).
+
+**Next**
+- Owner: run notebook 01, answer its 5 checkpoint questions, then `/checkpoint Day 1`.
+- Optional (owner): get the full Manary & Willems (2022) paper through the Northeastern library. Its data section (pp. 683–685) would confirm the forecast lag, the missing-week meaning and the ASP direction (decisions 6, 7, 10).
+- Day 2: `src/metrics.py` + notebook 02 to score Intel's forecast by DC/generation/class, with bias significance (HAC t-test, Wilcoxon) and a sensitivity check on decision 6.
+
+---
+
 ## 2026-11-08 — Day 0: Readiness layer COMPLETE ✅
 **Done**
 - Owner: Power BI Desktop installed (opens the sample CSV), Streamlit Community Cloud linked to GitHub.
